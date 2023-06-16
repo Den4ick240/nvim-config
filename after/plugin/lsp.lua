@@ -1,3 +1,5 @@
+require("nvim-lsp-installer").setup {}
+
 local lsp = require('lsp-zero').preset({})
 
 
@@ -39,18 +41,23 @@ local lsp = require('lsp-zero').preset({})
 --     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 -- end)
 
+
+
+lsp.ensure_installed({
+    'lua_ls',
+    'kotlin_language_server',
+    'texlab',
+})
+lsp.setup_servers({
+    'lua_ls',
+    'kotlin_language_server',
+    'texlab',
+})
+
 lsp.on_attach(function(client, bufnr) 
     lsp.default_keymaps({buffer = bufnr}) 
     vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', {buffer = true})
 end)
-
-lsp.setup_servers({
-    'lua_ls',
-    'java_language_server',
-    'kotlin_language_server',
-    'pylsp',
-    'texlab',
-})
 
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 require('lspconfig').kotlin_language_server.setup{}
