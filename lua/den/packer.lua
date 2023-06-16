@@ -2,10 +2,10 @@
 vim.cmd [[packadd packer.nvim]]
 local ensure_packer = function()
     local fn = vim.fn
-    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
     if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-        fn.system({'apt-get', 'install', 'ripgrep'})
+        fn.system({ 'sudo', 'apt-get', 'install', 'ripgrep' })
+        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
         vim.cmd [[packadd packer.nvim]]
         return true
     end
@@ -20,15 +20,14 @@ return require('packer').startup(function(use)
 
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'}, {'BurntSushi/ripgrep'} }
+        requires = { { 'nvim-lua/plenary.nvim' }, { 'BurntSushi/ripgrep' } }
     }
 
-    use { 'catppuccin/nvim', as = 'catpuccin'}
+    use { 'catppuccin/nvim', as = 'catpuccin' }
     use { 'sainnhe/everforest', as = 'everforest' }
     use('lunarvim/colorschemes')
 
-    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/playground')
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
@@ -39,37 +38,37 @@ return require('packer').startup(function(use)
         branch = 'v2.x',
         requires = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},             -- Required
+            { 'neovim/nvim-lspconfig' }, -- Required
             {
                 'williamboman/mason.nvim',
-                run = function() 
+                run = function()
                     pcall(vim.cmd, 'MasonUpdate')
                 end
-            },           -- Optional
-            {'williamboman/mason-lspconfig.nvim'}, -- Optional
+            },                                       -- Optional
+            { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},         -- Required
-            {'hrsh7th/cmp-nvim-lsp'},     -- Required
-            {'L3MON4D3/LuaSnip'},             -- Required
+            { 'hrsh7th/nvim-cmp' },     -- Required
+            { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+            { 'L3MON4D3/LuaSnip' },     -- Required
         }
     }
 
     use('lervag/vimtex')
 
-    use ('tpope/vim-commentary')
+    use('tpope/vim-commentary')
 
-    use ('rbgrouleff/bclose.vim')
+    use('rbgrouleff/bclose.vim')
 
-    use ('francoiscabrol/ranger.vim')
+    use('francoiscabrol/ranger.vim')
 
-    use ('windwp/nvim-autopairs')
+    use('windwp/nvim-autopairs')
 
-    use ('windwp/nvim-ts-autotag')
+    use('windwp/nvim-ts-autotag')
 
     --use ('aveplen/ruscmd.nvim')
 
-    use ('udalov/kotlin-vim')
+    use('udalov/kotlin-vim')
 
     use('tpope/vim-surround')
 
@@ -84,6 +83,14 @@ return require('packer').startup(function(use)
 
 
     use 'sheodox/projectlaunch.nvim'
+    use({
+        'lyokha/vim-xkbswitch',
+        run = function()
+            vim.g.XkbSwitchEnabled = 1
+            vim.g.XkbSwitchLib = '/usr/local/lib/libg3kbswitch.so'
+        end
+    })
+
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

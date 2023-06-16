@@ -32,3 +32,9 @@ vim.opt.spelllang = "en_us,ru_ru"
 
 vim.g.transparent_background = true
 vim.cmd [[colorscheme aurora]]
+
+vim.o.keymap = "russian-jcukenwin"
+vim.o.iminsert = 0
+vim.o.imsearch = 0
+vim.cmd("highlight lCursor guifg=NONE guibg=Cyan")
+
