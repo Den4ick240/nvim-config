@@ -1,5 +1,3 @@
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -38,6 +36,7 @@ return require('packer').startup(function(use)
         branch = 'v2.x',
         requires = {
             -- LSP Support
+{             'williamboman/nvim-lsp-installer'},
             { 'neovim/nvim-lspconfig' }, -- Required
             {
                 'williamboman/mason.nvim',
@@ -64,7 +63,7 @@ return require('packer').startup(function(use)
 
     use('windwp/nvim-autopairs')
 
-    use('windwp/nvim-ts-autotag')
+    use{ 'windwp/nvim-ts-autotag', requires={'nvim-treesitter/nvim-treesitter'}}
 
     --use ('aveplen/ruscmd.nvim')
 
@@ -83,13 +82,7 @@ return require('packer').startup(function(use)
 
 
     use 'sheodox/projectlaunch.nvim'
-    use({
-        'lyokha/vim-xkbswitch',
-        run = function()
-            vim.g.XkbSwitchEnabled = 1
-            vim.g.XkbSwitchLib = '/usr/local/lib/libg3kbswitch.so'
-        end
-    })
+    use 'lyokha/vim-xkbswitch'
 
 
     -- Automatically set up your configuration after cloning packer.nvim
